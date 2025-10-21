@@ -39,7 +39,7 @@ const Navbar = () => {
                 </h1>
             </Link>
             
-            <NavigationMenu className="ml-auto hidden md:flex">
+            <NavigationMenu className="!ml-auto hidden md:flex">
                 <NavigationMenuList className="space-x-4">
                     <NavigationMenuItem>
                         <NavigationMenuLink href="/" className={`cursor-pointer !bg-transparent ${navigationMenuTriggerStyle()}`}>
@@ -53,69 +53,44 @@ const Navbar = () => {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
-                    <div className="gap-[1px] flex items-center">
-                        <Link 
-                            href="/auth/login" 
-                            className='w-20 h-10 rounded-l-md flex justify-center items-center text-sm !text-white !bg-[#0d1e21] hover:text-white'
-                        >
-                            Try it
-                        </Link>
-                        <Popover open={openPopover} onOpenChange={setOpenPopover}>
-                            <PopoverTrigger asChild>
-                                <Button className='cursor-pointer rounded-l-none h-10 !text-white !bg-[#031a1c] p-3 flex items-center'>
-                                    <ChevronDown className={cn("size-4 transition-all", openPopover && "rotate-180")}/>
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className='w-[170px] space-y-3'>
-                                <h1 className="font-semibold text-sm text-zinc-800">Start With</h1>
-                                <ul className="space-y-2">
-                                    <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
-                                        <p className="hover:underline">Clyre Chat</p>
-                                        <SquareArrowOutUpRight className="size-3"/>
-                                    </li>
-                                    <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
-                                        <p className="hover:underline">Clyre Pulse</p>
-                                        <SquareArrowOutUpRight className="size-3"/>
-                                    </li>
-                                </ul>
-
-                                <Separator className="h-[1px] bg-stone-200" />
-
-                                <Link href="/auth/login" className="text-sm text-zinc-800 font-semibold flex justify-between items-center">
-                                    Login
-                                    <LogIn className="size-4"/>
-                                </Link>
-                            </PopoverContent>
-                        </Popover>
-                        {/* <NavigationMenuItem className="h-full py-1">
-                            <NavigationMenuTrigger className="rounded-l-none h-10 !text-white !bg-[#031a1c]"/>
-                            <NavigationMenuContent>
-                                <div className="w-[150px] space-y-3 p-2">
-                                    <h1 className="font-semibold text-sm text-zinc-800">Start With</h1>
-                                    <ul className="space-y-2">
-                                        <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
-                                            <p className="hover:underline">Clyre Chat</p>
-                                            <SquareArrowOutUpRight className="size-3"/>
-                                        </li>
-                                        <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
-                                            <p className="hover:underline">Clyre Pulse</p>
-                                            <SquareArrowOutUpRight className="size-3"/>
-                                        </li>
-                                    </ul>
-        
-                                    <Separator className="h-[1px] bg-stone-200" />
-        
-                                    <Link href="/auth/login" className="text-sm text-zinc-800 font-semibold flex justify-between items-center">
-                                        Login
-                                        <LogIn className="size-4"/>
-                                    </Link>
-                                    
-                                </div>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem> */}
-                    </div>
                 </NavigationMenuList>
             </NavigationMenu>
+
+            <div className="gap-[1px] hidden md:flex items-center">
+                <Link 
+                    href="/login" 
+                    className='w-20 h-10 rounded-l-md flex justify-center items-center text-sm !text-white !bg-[#0d1e21] hover:text-white'
+                >
+                    Try it
+                </Link>
+                <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                    <PopoverTrigger asChild>
+                        <Button className='cursor-pointer rounded-l-none h-10 !text-white !bg-[#031a1c] p-3 flex items-center'>
+                            <ChevronDown className={cn("size-4 transition-all", openPopover && "rotate-180")}/>
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-[170px] space-y-3'>
+                        <h1 className="font-semibold text-sm text-zinc-800">Start With</h1>
+                        <ul className="space-y-2">
+                            <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
+                                <p className="hover:underline">Clyre Chat</p>
+                                <SquareArrowOutUpRight className="size-3"/>
+                            </li>
+                            <li className="cursor-pointer text-sm text-zinc-700 flex gap-2 items-center justify-between hover:bg-zinc-100 hover:underline rounded-md px-2 py-1">
+                                <p className="hover:underline">Clyre Pulse</p>
+                                <SquareArrowOutUpRight className="size-3"/>
+                            </li>
+                        </ul>
+
+                        <Separator className="h-[1px] bg-stone-200" />
+
+                        <Link href="/login" className="text-sm text-zinc-800 font-semibold flex justify-between items-center">
+                            Login
+                            <LogIn className="size-4"/>
+                        </Link>
+                    </PopoverContent>
+                </Popover>
+            </div>
         </div>
     )
 }

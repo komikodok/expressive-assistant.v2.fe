@@ -1,26 +1,37 @@
-import { Exo_2 } from "next/font/google"
+"use client"
+
+import { motion } from "motion/react"
+import { Orbitron } from "next/font/google"
 import Image from "next/image"
 
-const Exo2 = Exo_2({
+
+const orbitron = Orbitron({
     subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-    variable: "--font-exo2",
+    weight: "500",
+    variable: "--font-orbitron",
 })
 
 const AuthBanner = () => {
   return (
         <>
-        <h2 className={`head text-7xl text-[#cf381d] ${Exo2.className}`}>
+        <motion.h2 
+            animate={{ letterSpacing: ['-1em', '0em'] }}
+            transition={{ duration: 1, type: 'spring', repeatDelay: 5, repeat: Infinity, }}
+            className={`text-7xl text-stone-100 ${orbitron.className}`}
+        >
             Clyre
-        </h2>
+        </motion.h2>
 
-        <div className={`
-            text-3xl text-center text-[#ee4c30] flex justify-center items-center
-            ${Exo2.className}
-        `}>
-            <p className="phar-1">Create</p>
-            <Image id="logo" src="/logo.png" width={52} height={52} alt="logo" />
-            <p className="phar-2">Your Article</p>
+        <div className="text-3xl text-center text-stone-100 flex justify-center items-center">
+            <motion.p 
+                initial={{ opacity: 0, letterSpacing: '-0.1em' }}
+                animate={{ opacity: 1, letterSpacing: '0em' }}
+                transition={{ delay: 0.5, type: 'spring', repeatDelay: 5, repeat: Infinity, ease: 'anticipate' }}
+                className="flex flex-col"
+            >
+                Grow up your business, built for you
+            </motion.p>
+            {/* <Image id="logo" src="/logo.png" width={52} height={52} alt="logo" /> */}
         </div>
         </>
   )
