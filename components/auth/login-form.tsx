@@ -59,7 +59,13 @@ const LoginForm = () => {
 
     return (
         <>
-        <motion.h2 animate={{ opacity: 1 }} className='opacity-0 font-bold text-[#082E24]'>Have account?</motion.h2>
+        <motion.h2 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }} 
+            className='font-bold text-center mb-3 text-[#082E24]'
+        >
+            Have account?
+        </motion.h2>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12 md:space-y-10">
                 <FormField
