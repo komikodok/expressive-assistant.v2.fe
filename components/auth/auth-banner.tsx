@@ -31,6 +31,7 @@ const AuthBanner = () => {
             >
                 Grow up your business, built for you
             </motion.p>
+            
             {/* <Image id="logo" src="/logo.png" width={52} height={52} alt="logo" /> */}
         </div>
         </>
