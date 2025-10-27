@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react"
 import { Orbitron } from "next/font/google"
-import Image from "next/image"
 
 
 const orbitron = Orbitron({
@@ -31,8 +30,6 @@ const AuthBanner = () => {
             >
                 Grow up your business, built for you
             </motion.p>
-            
-            {/* <Image id="logo" src="/logo.png" width={52} height={52} alt="logo" /> */}
         </div>
         </>
   )
