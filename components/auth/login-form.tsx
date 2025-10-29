@@ -26,7 +26,6 @@ import { Button } from "../ui/button"
 
 const LoginForm = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
-    const [hasError, setHasError] = useState<boolean>(false)
 
     const router = useRouter()
     const { status } = useSession()
@@ -34,7 +33,7 @@ const LoginForm = () => {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            username: "",
+            email: "",
             password: "",
         },
         mode: "onChange"
@@ -52,7 +51,6 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (Object.keys(form.formState.errors).length > 0) {
-            setHasError(Object.keys(form.formState.errors).length > 0)
             console.log(form.formState.errors)
         }
     }, [form.formState.errors])
@@ -70,7 +68,7 @@ const LoginForm = () => {
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12 md:space-y-10">
                 <FormField
                     control={form.control}
-                    name="username"
+                    name="email"
                     render={({ field }) => (
                         <FormItem className=" relative border border-zinc-300 focus-within:border-[#1A2421] rounded-md flex items-center">                            
                             <motion.div 
@@ -79,7 +77,7 @@ const LoginForm = () => {
                                 transition={{ delay: 0.5 }}
                                 className="px-2 bg-white rounded-lg absolute left-2"
                             >
-                                <FormLabel className="!text-[#1A2421] bg-white text-xs">Username</FormLabel>
+                                <FormLabel className="!text-[#1A2421] bg-white text-xs">Email</FormLabel>
                             </motion.div>
 
                             <FormControl>

@@ -15,12 +15,12 @@ let response
 
 export const authServices = {
     register: async (data: IRegister) => {
-        response = await apiClient.post('/auth/register', data)
+        response = await apiClient.post('/api/auth/register', data)
 
         return response.data
     },
     login: async (data: ILogin) => {
-        response = await apiClient.post('/auth/login', data)
+        response = await apiClient.post('/api/auth/login', data)
 
         return response.data
     }

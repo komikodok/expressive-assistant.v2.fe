@@ -8,16 +8,25 @@ export interface IUser {
     image?: string
 }
 
-export const userService = {
+export const userServices = {
     getAll: async (params?: { search?: string }) => {
-        const response = await apiClient.get('/users', {
+        const response = await apiClient.get('/api/users', {
             params: params
         })
 
         return response.data
     },
+    getDetail: async (token: string) => {
+        const response = await apiClient.get('api/users/profile', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return response.data
+    },
     getById: async (id: string | number) => {
-        const response = await apiClient.get(`/users/${id}`)
+        const response = await apiClient.get(`/api/users/${id}`)
 
         return response.data
     },
