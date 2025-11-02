@@ -10,11 +10,18 @@ import {
 import { Separator } from '@/components/ui/separator'
 import Link from "next/link"
 import { Exo_2 } from "next/font/google"
-import { LogIn, SquareArrowOutUpRight, ChevronDown } from 'lucide-react'
+import { 
+    LogIn, 
+    LogOut,
+    SquareArrowOutUpRight, 
+    ChevronDown 
+} from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
+import { useAuth } from '@/lib/react-query/hooks/auth.hook'
+import { signOut } from 'next-auth/react'
 
 const Exo2 = Exo_2({
     subsets: ["latin"],
@@ -24,6 +31,8 @@ const Exo2 = Exo_2({
 
 const Navbar = () => {
     const [openPopover, setOpenPopover] = useState<boolean>(false)
+
+    const auth = useAuth()
 
     return (
         <div className="max-w-7xl mx-auto bg-[#0d1e21]/5 flex space-x-3 items-center">
@@ -84,10 +93,20 @@ const Navbar = () => {
 
                         <Separator className="h-[1px] bg-stone-200" />
 
-                        <Link href="/login" className="text-sm text-zinc-800 font-semibold flex justify-between items-center">
-                            Login
-                            <LogIn className="size-4"/>
-                        </Link>
+                        {auth.isAuthenticated ? (
+                            <div
+                                onClick={() => signOut({ callbackUrl: '/' })}
+                                className='cursor-pointer flex justify-between text-sm text-red-500 font-semibold'
+                            >
+                                <span>Logout</span>
+                                <LogOut className='size-4'/>
+                            </div>
+                        ) : (
+                            <Link href="/login" className="text-sm text-zinc-800 font-semibold flex justify-between items-center">
+                                Login
+                                <LogIn className="size-4"/>
+                            </Link>
+                        )}
                     </PopoverContent>
                 </Popover>
             </div>

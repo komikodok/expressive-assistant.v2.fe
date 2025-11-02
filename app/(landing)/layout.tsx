@@ -1,11 +1,14 @@
 import Navbar from '@/components/common/navbar'
 import LandingContent from '@/components/landing/landing-content'
 import LandingHero from '@/components/landing/landing-hero'
+import { SessionProvider } from 'next-auth/react'
 
 const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-        <Navbar />
+        <SessionProvider>
+          <Navbar />
+        </SessionProvider>
 
         <div className="space-y-8 md:space-y-20">
             <LandingHero />

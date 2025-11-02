@@ -2,9 +2,13 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { authServices } from "./lib/api/services/auth.service"
 import { userServices } from "./lib/api/services/user.service"
+import exceptionHandler from "./lib/error-handler"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET,
+  pages: {
+    signIn: '/login'
+  },
   providers: [
     Credentials({
       credentials: {
@@ -12,21 +16,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "password", type: "password" }
       },
       async authorize(credentials) {
-        const res = await authServices.login({
-          email: credentials.email as string,
-          password: credentials.password as string
-        })
+        try {
+          const res = await authServices.login({
+            email: credentials.email as string,
+            password: credentials.password as string
+          })
 
-        const token = res.data.data.token
-        if (!token) return null
+          const token = res.data.token
+          if (!token) return null
+  
+          const userRes = await userServices.getDetail(token)
 
-        const userRes = await userServices.getDetail(token)
-        const user = userRes.data.data
-        if (!user) return null
-        
-        return {
-          ...user,
-          accessToken: token
+          const user = userRes.data
+          if (!user) return null
+          
+          return {
+            ...user,
+            accessToken: token
+          }
+        } catch (error) {
+          const appError = exceptionHandler(error)
+          console.error(appError)
+
+          return null
         }
       },
     }),

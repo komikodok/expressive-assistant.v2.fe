@@ -25,13 +25,13 @@ const SectionNavigation = () => {
                 </li>
                 <Separator/>
                 <li className="text-stone-800 hover:underline border-blue-500 hover:font-bold cursor-pointer">
-                    <Link href="/#clyre-symptoms">
+                    <Link href="/">
                         Get Started
                     </Link>
                 </li>
                 <Separator/>
                 <li className="text-stone-800 hover:underline border-blue-500 hover:font-bold cursor-pointer">
-                    <Link href="/#privacy">
+                    <Link href="/">
                         Privacy
                     </Link>
                 </li>

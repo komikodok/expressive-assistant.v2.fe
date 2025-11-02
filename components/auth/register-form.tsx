@@ -15,62 +15,41 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { loginSchema } from "@/lib/schemas/login.schema"
+import { registerSchema } from "@/lib/schemas/register.schema"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { signIn, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 import { motion } from 'motion/react'
 import { Button } from "../ui/button"
+import { authServices } from "@/lib/api/services/auth.service"
 
 
-const LoginForm = () => {
+const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const router = useRouter()
     const { status } = useSession()
 
-    const form = useForm<z.infer<typeof loginSchema>>({
-        resolver: zodResolver(loginSchema),
+    const form = useForm<z.infer<typeof registerSchema>>({
+        resolver: zodResolver(registerSchema),
         defaultValues: {
             email: "",
+            username: "",
             password: "",
         },
         mode: "onChange"
     })
 
-    async function handleSubmit(values: z.infer<typeof loginSchema>) {
-        const res = await signIn("credentials", {
-            redirect: false,
-            email: values.email,
-            password: values.password,
-            callbackUrl: '/'
-        })
+    async function handleSubmit(values: z.infer<typeof registerSchema>) {
+        try {
+            await authServices.register(values)
+            form.reset()
 
-        if (res?.error) {
-            switch (res.error) {
-                case "CredentialsSignin":
-                    form.setError("email", {
-                        type: 'onChange',
-                        message: "Email or password invalid"
-                    })
-                    form.setError("password", {
-                        type: 'onChange',
-                        message: "Email or password invalid"
-                    })
-                    break
-                default:
-                    form.setError("email", {
-                        type: 'onChange',
-                        message: res.error
-                    })
-                    form.setError("password", {
-                        type: 'onChange',
-                        message: res.error
-                    })
-            }
+            return router.push('/login')
+        } catch (error) {
+            console.error(error)
         }
-       
     }
 
     return (
@@ -80,10 +59,10 @@ const LoginForm = () => {
             animate={{ opacity: 1 }} 
             className='font-bold text-center mb-3 text-[#082E24]'
         >
-            Have account?
+            Sign up
         </motion.h2>
         <Form {...form}>
-            <form aria-label="login-form" onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12 md:space-y-10">
+            <form aria-label="register-form" onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12 md:space-y-10">
                 <FormField
                     control={form.control}
                     name="email"
@@ -108,6 +87,31 @@ const LoginForm = () => {
                         </FormItem>
                     )}
                 />
+
+                <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                        <FormItem className=" relative border border-zinc-300 focus-within:border-[#1A2421] rounded-md flex items-center">                            
+                            <motion.div 
+                                initial={{ opacity: 0.5 }}
+                                animate={{ opacity: 1, top: ['auto', -7] }}
+                                transition={{ delay: 0.5 }}
+                                className="px-2 bg-white rounded-lg absolute left-2"
+                            >
+                                <FormLabel className="!text-[#1A2421] bg-white text-xs">Username</FormLabel>
+                            </motion.div>
+
+                            <FormControl>
+                                <Input 
+                                    {...field} 
+                                    className="!text-xs px-4 border-none outline-none focus-visible:ring-0"
+                                />
+                            </FormControl>
+                            <FormMessage className="absolute top-full text-[10px] p-1" />
+                        </FormItem>
+                    )}
+                />
                 
                 <div className="flex gap-2 justify-between items-center">
                     <FormField
@@ -118,7 +122,7 @@ const LoginForm = () => {
                                 <motion.div 
                                     initial={{ opacity: 0.5 }}
                                     animate={{ opacity: 1, top: ['auto', -7] }}
-                                    transition={{ delay: 0.7 }}
+                                    transition={{ delay: 0.9 }}
                                     className="px-2 bg-white rounded-lg absolute left-2"
                                 >
                                     <FormLabel className="!text-[#1A2421] bg-white text-xs">Password</FormLabel>
@@ -149,11 +153,11 @@ const LoginForm = () => {
                         disabled={!form.formState.isValid}
                         className="w-full text-xs bg-[#082E24] hover:bg-[#0F1915] active:bg-[#0F1915] text-white cursor-pointer font-semibold p-2 rounded-md transition-all duration-500"
                     >
-                            { status === "loading" ? "Authenticating..." : "Sign In"}
+                            { status === "loading" ? "Authenticating..." : "Sign up"}
                     </Button>
                     <p className="font-light text-xs flex gap-2">
-                        Don&apos;t have an account yet?
-                        <span onClick={() => router.replace('/register')} className="text-blue-500 hover:underline cursor-pointer">Sign Up</span>
+                        Have account?
+                        <span onClick={() => router.replace('/login')} className="text-blue-500 hover:underline cursor-pointer">Sign In</span>
                     </p>
                 </div>
             </form>
@@ -162,4 +166,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default RegisterForm
