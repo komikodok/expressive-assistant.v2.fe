@@ -44,7 +44,6 @@ const LoginForm = () => {
             redirect: false,
             email: values.email,
             password: values.password,
-            callbackUrl: '/'
         })
 
         if (res?.error) {
@@ -70,6 +69,8 @@ const LoginForm = () => {
                     })
             }
         }
+
+        router.push('/')
        
     }
 

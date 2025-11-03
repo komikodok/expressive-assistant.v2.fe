@@ -96,7 +96,7 @@ const RegisterForm = () => {
                             <motion.div 
                                 initial={{ opacity: 0.5 }}
                                 animate={{ opacity: 1, top: ['auto', -7] }}
-                                transition={{ delay: 0.5 }}
+                                transition={{ delay: 0.7 }}
                                 className="px-2 bg-white rounded-lg absolute left-2"
                             >
                                 <FormLabel className="!text-[#1A2421] bg-white text-xs">Username</FormLabel>

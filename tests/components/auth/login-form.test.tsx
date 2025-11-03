@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 
 
 const replaceMock = jest.fn()
+const pushMock = jest.fn()
 
 describe('login-form.tsx', () => {
 
@@ -13,6 +14,7 @@ describe('login-form.tsx', () => {
 
         ;(useRouter as jest.Mock).mockReturnValue({
             replace: replaceMock,
+            push: pushMock
         })
         render(<LoginForm />)
     })
@@ -86,6 +88,7 @@ describe('login-form.tsx', () => {
         })
 
         expect(signIn).toHaveBeenCalled()
+        expect(pushMock).toHaveBeenLastCalledWith('/')
     })
 
     test("should be redirect to register page when signup button is clicked with router.replace()", async () => {
