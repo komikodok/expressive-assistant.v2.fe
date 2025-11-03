@@ -96,6 +96,7 @@ const Navbar = () => {
                         {auth.isAuthenticated ? (
                             <div
                                 onClick={() => signOut({ callbackUrl: '/' })}
+                                data-testid="logout-button"
                                 className='cursor-pointer flex justify-between text-sm text-red-500 font-semibold'
                             >
                                 <span>Logout</span>

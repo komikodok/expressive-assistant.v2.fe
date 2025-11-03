@@ -18,3 +18,12 @@ jest.mock("next/navigation", () => ({
     }))
 
 }))
+
+jest.mock("./lib/react-query/hooks/auth.hook.ts", () => ({
+    __esModule: true,
+    useAuth: jest.fn((() => ({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+    })))
+}))
