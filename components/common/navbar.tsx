@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Separator } from '@/components/ui/separator'
 import Link from "next/link"
-import { Exo_2 } from "next/font/google"
+import { Oregano, Orbitron } from "next/font/google"
 import { 
     LogIn, 
     LogOut,
@@ -22,12 +22,20 @@ import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
 import { useAuth } from '@/lib/react-query/hooks/auth.hook'
 import { signOut } from 'next-auth/react'
+import { motion } from 'motion/react'
 
-const Exo2 = Exo_2({
+
+const oregano = Oregano({
     subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-    variable: "--font-exo2",
+    weight: ["400"],
 })
+
+const orbitron = Orbitron({
+    subsets: ["latin"],
+    weight: "500",
+    variable: "--font-orbitron",
+})
+
 
 const Navbar = () => {
     const [openPopover, setOpenPopover] = useState<boolean>(false)
@@ -39,12 +47,33 @@ const Navbar = () => {
             <Link href="/" className="p-2">
                 <h1 
                     className={`
-                        font-bold text-lg md:text-2xl text-[#0d1e21] tracking-tight p-2
-                        ${Exo2.className}
+                        font-extrabold space-x-0.5 text-lg md:text-2xl text-[#0d1e21] tracking-tight p-2
+                        ${oregano.className}
                     `}
                 >
-                    <span>Clyre.</span>
-                    ai
+                    <motion.span 
+                        initial={{ opacity: 0, y: -50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ type: 'spring', stiffness: 150 }} 
+                        className='inline-block px-2 py-1 font-semibold text-white rounded-tl-2xl rounded-tr-3xl rounded-br-lg rounded-bl-[2.5em] bg-gradient-to-br from-teal-900 via-teal-950 to-[#0d1e21]'
+                    >
+                        <motion.span 
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.2, type: 'spring', stiffness: 100 }}
+                            className='inline-block'
+                        >
+                            C
+                        </motion.span>
+                    </motion.span>
+                    <motion.span 
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5, duration: 0.3 }}
+                        className={cn('inline-block', orbitron.className)}
+                    >
+                        lyre
+                    </motion.span>
                 </h1>
             </Link>
             
